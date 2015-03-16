@@ -1,0 +1,101 @@
+body {
+  font-family: "PT sans", sans-serif;
+  font-size: 16px; }
+
+p {
+  line-height: 150%; }
+
+a {
+  color: black; }
+  a:hover {
+    color: #666; }
+
+h1 {
+  text-align: center; }
+
+#content {
+  width: 800px;
+  margin: 20px auto; }
+
+#footer {
+  width: 800px;
+  margin: 40px auto;
+  font-size: 12px;
+  text-align: center; }
+
+#title {
+  text-align: center;
+  margin: 0px; }
+
+#form {
+  margin: 20px auto;
+  width: 500px; }
+  #form ul.errors {
+    margin: 40px 0px;
+    padding: 0;
+    list-style: none; }
+    #form ul.errors li {
+      margin: 5px 0px;
+      padding: 5px;
+      background: #C00;
+      color: white;
+      border-radius: 4px; }
+      #form ul.errors li label {
+        font-weight: bold; }
+  #form .buttons {
+    text-align: center;
+    margin: 20px 0px; }
+    #form .buttons input {
+      font-size: 16px;
+      font-family: "PT sans", sans-serif; }
+
+fieldset {
+  padding: 0px;
+  border: none;
+  border-top: 2px solid black;
+  position: relative;
+  margin-top: 20px; }
+  fieldset legend {
+    position: absolute;
+    top: -20px;
+    left: 0px;
+    font-weight: bold; }
+  fieldset .input {
+    margin: 20px 0px; }
+    fieldset .input.required label:before {
+      content: "*";
+      color: #900; }
+    fieldset .input label {
+      display: block;
+      margin-bottom: 5px; }
+      fieldset .input label:after {
+        content: ":"; }
+    fieldset .input input, fieldset .input select {
+      font-size: 16px;
+      font-family: "PT sans", sans-serif;
+      width: 300px; }
+    fieldset .input input[type=text] {
+      padding: 5px; }
+    fieldset .input.compact {
+      margin: 10px 0px; }
+      fieldset .input.compact label {
+        display: inline-block;
+        margin: 0px;
+        margin-right: 5px; }
+
+#job-request-data, #job-complete-data {
+  width: 600px;
+  margin: 40px auto; }
+
+p.status {
+  margin: 10px auto;
+  padding: 10px;
+  width: 600px;
+  border-radius: 4px;
+  color: white; }
+  p.status.pending {
+    background: #CC0; }
+  p.status.completed {
+    background: #0C0; }
+  p.status.error {
+    background: #C00; }

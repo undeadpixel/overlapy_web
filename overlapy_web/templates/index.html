@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1 id="title"><img src="{{ url_for('static', filename='overlapy_logo.png') }}" alt="Overlapy"></h1>
+  <p class="introduction">A simple protein superimposition web service created by Álvaro Abella, Josep Arús and Samuel Miravet as the project for the Python and Structural Bioinformatics subjects at the MSc in Bioinformatics at the Universitat Pompeu Fabra.</p>
+
+  <div id="form">
+    <form method="POST" action="/" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+
+        <ul class="errors">
+            {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+                {% for error in field_errors %}
+                    <li>{{ form[field_name].label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+
+        <fieldset>
+          <legend>PDB files</legend>
+
+          <div class="input required">
+            {{ form.first_pdb.label }} {{ form.first_pdb() }}
+          </div>
+
+          <div class="input required">
+            {{ form.second_pdb.label }} {{ form.second_pdb() }}
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Additional options</legend>
+
+          <p>It will only superimpose residues from the following chains:</p>
+
+          <div class="input">
+            {{ form.first_pdb_chains.label }} {{ form.first_pdb_chains() }}
+          </div>
+
+          <div class="input">
+            {{ form.second_pdb_chains.label }} {{ form.second_pdb_chains() }}
+          </div>
+
+
+        </fieldset>
+        
+
+        <fieldset>
+          <legend>Contact information</legend>
+
+          <div class="input required">
+            {{ form.email.label }} {{ form.email() }}
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Security</legend>
+
+          <div class="input required">
+            {{ form.recaptcha }}
+          </div>
+        </fieldset>
+
+        <div class="buttons">
+          <input type="submit" value="Overlapy!!">
+        </div>
+    </form>
+  </div>
+{% endblock %}

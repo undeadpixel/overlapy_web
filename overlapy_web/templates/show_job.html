@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>Task information</h1>
+
+  <div id="job-request-data">
+    <fieldset>
+      <legend>Request data</legend>
+
+      <div class="input compact">
+        <label>#ID</label>
+        <span>{{ job.id }}</span>
+      </div>
+
+      <div class="input compact">
+        <label>Created at</label>
+        <span>{{ job.created_at.strftime('%d/%m/%Y %H:%M:%S') }}</span>
+      </div>
+
+      <div class="input compact">
+        <label>First PDB</label>
+        <span><a href="{{ url_for('uploads', file_name=job.file_path(job.first_pdb)) }}">{{ job.first_pdb }}</a></span>
+      </div>
+
+      <div class="input compact">
+        <label>Second PDB</label>
+        <span><a href="{{ url_for('uploads', file_name=job.file_path(job.second_pdb)) }}">{{ job.second_pdb }}</a></span>
+      </div>
+
+      <div class="input compact">
+        <label>First PDB chains</label>
+        <span>
+          {% if job.first_pdb_chains %}
+            {{ job.first_pdb_chains }}
+          {% else %}
+            All
+          {% endif %}
+        </span>
+      </div>
+
+      <div class="input compact">
+        <label>Second PDB chains</label>
+        <span>
+          {% if job.second_pdb_chains %}
+            {{ job.second_pdb_chains }}
+          {% else %}
+            All
+          {% endif %}
+        </span>
+      </div>
+
+      <div class="input compact">
+        <label>E-Mail</label>
+        <span><a href="mailto:{{ job.email }}">{{ job.email }}</a></span>
+      </div>
+
+    </fieldset>
+  </div>
+
+  {% if job.is_pending() %}
+    <p class="status pending">Right now your job is in the queue. You will receive an email shortly when the superimposition is calculated, or you can refresh the page if you feel lucky!</p>
+  {% elif job.is_completed() %}
+    <p class="status completed">Here are the results of the superimposition you requested.</p>
+
+    <div id="job-complete-data">
+    <fieldset>
+      <legend>Results</legend>
+
+      <div class="input compact">
+        <label>Completed at</label>
+        <span>{{ job.completed_at.strftime('%d/%m/%Y %H:%M:%S') }}</span>
+      </div>
+      
+
+      <div class="input compact">
+        <label>RMSD</label>
+        <span>{{ job.rmsd|round(4)}}</span>
+      </div>
+
+      <div class="input compact">
+        <label>Superimposed PDB</label>
+        <span><a href="{{ url_for('uploads', file_name=job.file_path("superimposed.pdb")) }}">superimposed.pdb</a></span>
+      </div>
+
+      <div class="input compact">
+        <label>Matrix</label>
+        <span><a href="{{ url_for('uploads', file_name=job.file_path("matrix.tsv")) }}">matrix.tsv</a></span>
+      </div>
+
+      <div class="input compact">
+        <label>Alignment</label>
+        <span><a href="{{ url_for('uploads', file_name=job.file_path("alignment.clustal")) }}">alignment.clustal</a></span>
+      </div>
+
+    </fieldset>
+    </div>
+  {% else %}
+    <p class="status error">There has been an error processing your job. The system administrators have been informed of the situation.</p>
+  {% endif %}
+{% endblock %}
